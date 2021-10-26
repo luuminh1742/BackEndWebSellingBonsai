@@ -78,6 +78,7 @@ namespace bn_selling_bonsai.Controllers
             {
                 return BadRequest(ModelState);
             }
+            account.Role = db.Roles.Where(r => r.Code.Equals(account.RoleCode)).FirstOrDefault();
             account.Status = true;
             db.Accounts.Add(account);
             db.SaveChanges();

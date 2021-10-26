@@ -19,7 +19,9 @@ namespace bn_selling_bonsai.Controllers
             newAccount = db.Accounts
                 .Where(a => a.Email.Equals(account.Email) && a.Password.Equals(account.Password) && a.Status)
                 .FirstOrDefault();
-
+            newAccount.Bills = null;
+            newAccount.Reviews = null;
+            newAccount.Role = null;
             return newAccount;
         }
 

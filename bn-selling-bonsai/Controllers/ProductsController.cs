@@ -25,11 +25,17 @@ namespace bn_selling_bonsai.Controllers
             return db.Products;
         }
 
-        [AllowAnonymous]
-        [HttpGet]
+
         [Route("api/ListProduct")]
-        public IHttpActionResult GetProducts(int categoryId = 0, int page = 1, int pageSize = 10)
+        public IHttpActionResult GetProducts(
+            int categoryId = 0,
+            int page = 1,
+            int pageSize = 10,
+            int sortByPrice = 0,
+            string search = null
+            )
         {
+
             var result = db.Products.ToList();
 
             if (categoryId != 0)
@@ -37,11 +43,28 @@ namespace bn_selling_bonsai.Controllers
                 result = result.Where(p => p.CategoryId == categoryId).ToList();
             }
 
+            if (search != null)
+            {
+                result = result.Where(p => p.Name.ToLower().Contains(search.ToLower().Trim())).ToList();
+            }
             int totalPage = (int)Math.Ceiling(result.Count() / (float)pageSize);
             if (page > totalPage) page = 1;
             int startRecord = (int)(page - 1) * pageSize;
 
-            result = result.OrderBy(p => p.Id).Skip(startRecord).Take(pageSize).ToList();
+
+
+            if (sortByPrice == 0)
+            {
+                result = result.OrderBy(p => p.Id).Skip(startRecord).Take(pageSize).ToList();
+            }
+            else if (sortByPrice == 1)
+            {
+                result = result.OrderBy(p => (p.Price * (100 - p.Discount) / 100)).Skip(startRecord).Take(pageSize).ToList();
+            }
+            else if (sortByPrice == -1)
+            {
+                result = result.OrderByDescending(p => (p.Price * (100 - p.Discount) / 100)).Skip(startRecord).Take(pageSize).ToList();
+            }
 
             return Json(new { data = result, currentPage = page, totalPage = totalPage });
         }
