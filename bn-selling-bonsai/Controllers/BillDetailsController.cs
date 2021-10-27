@@ -17,9 +17,10 @@ namespace bn_selling_bonsai.Controllers
         private DBSellingBonsai db = new DBSellingBonsai();
 
         // GET: api/BillDetails
-        public IQueryable<BillDetail> GetBillDetails()
+        public IQueryable<BillDetail> GetBillDetails(int billId)
         {
-            return db.BillDetails;
+            var result = db.BillDetails.Where(bd=>bd.BillId == billId);
+            return result;
         }
 
         // GET: api/BillDetails/5
@@ -78,7 +79,8 @@ namespace bn_selling_bonsai.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            billDetail.Bill = db.Bills.Find(billDetail.BillId);
+            billDetail.Product = db.Products.Find(billDetail.ProductId);
             db.BillDetails.Add(billDetail);
             db.SaveChanges();
 

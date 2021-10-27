@@ -20,6 +20,7 @@ namespace bn_selling_bonsai.Models
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

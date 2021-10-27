@@ -1,5 +1,6 @@
 namespace bn_selling_bonsai.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -27,8 +28,11 @@ namespace bn_selling_bonsai.Models
         [StringLength(255)]
         public string Image { get; set; }
 
+        public int? Discount { get; set; }
+
         public virtual Bill Bill { get; set; }
 
+        [JsonIgnore]
         public virtual Product Product { get; set; }
     }
 }

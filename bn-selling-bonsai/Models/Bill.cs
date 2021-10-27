@@ -1,5 +1,6 @@
 namespace bn_selling_bonsai.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -35,6 +36,13 @@ namespace bn_selling_bonsai.Models
         [StringLength(255)]
         public string Note { get; set; }
 
+        public int? Shipping { get; set; }
+
+        public int? Subtotal { get; set; }
+
+        public int? Total { get; set; }
+
+        [JsonIgnore]
         public virtual Account Account { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

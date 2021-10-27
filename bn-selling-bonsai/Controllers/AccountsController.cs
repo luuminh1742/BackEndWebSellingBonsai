@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Mvc;
 using bn_selling_bonsai.Models;
 
 namespace bn_selling_bonsai.Controllers
@@ -15,6 +16,8 @@ namespace bn_selling_bonsai.Controllers
     public class AccountsController : ApiController
     {
         private DBSellingBonsai db = new DBSellingBonsai();
+
+
 
         // GET: api/Accounts
         public IQueryable<Account> GetAccounts()
@@ -34,10 +37,48 @@ namespace bn_selling_bonsai.Controllers
 
             return Ok(account);
         }
+        public class ChangePass
+        {
+            public int AccountId { get; set; }
+            public string OldPassword { get; set; }
+            public string NewPassword { get; set; }
+
+        }
+        // PUT: api/Accounts/5
+        [System.Web.Http.Route("api/UpdatePassword")]
+        [ResponseType(typeof(bool))]
+        public IHttpActionResult PutAccount(ChangePass changePass)
+        {
+            var accountUpdate = db.Accounts.Find(changePass.AccountId);
+            if (!accountUpdate.Password.Equals(changePass.OldPassword))
+            {
+                return Ok(false);
+            }
+            accountUpdate.Password = changePass.NewPassword;
+            db.Entry(accountUpdate).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AccountExists(changePass.AccountId))
+                {
+                    return Ok(false);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return Ok(true);
+        }
 
         // PUT: api/Accounts/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutAccount(int id, Account account)
+        public IHttpActionResult PutAccount(int id,
+            [Bind(Include = "Email,FullName,Phone,Address")] Account account)
         {
             if (!ModelState.IsValid)
             {
@@ -48,8 +89,13 @@ namespace bn_selling_bonsai.Controllers
             {
                 return BadRequest();
             }
+            var accountUpdate = db.Accounts.Find(id);
 
-            db.Entry(account).State = EntityState.Modified;
+            accountUpdate.FullName = account.FullName;
+            accountUpdate.Email = account.Email;
+            accountUpdate.Phone = account.Phone;
+            accountUpdate.Address = account.Address;
+            db.Entry(accountUpdate).State = EntityState.Modified;
 
             try
             {

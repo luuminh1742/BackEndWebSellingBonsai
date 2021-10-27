@@ -17,9 +17,10 @@ namespace bn_selling_bonsai.Controllers
         private DBSellingBonsai db = new DBSellingBonsai();
 
         // GET: api/BillStatus
-        public IQueryable<BillStatu> GetBillStatus()
+        public IQueryable<BillStatu> GetBillStatus(int billId)
         {
-            return db.BillStatus;
+            var result = db.BillStatus.Where(bs => bs.BillId == billId);
+            return result;
         }
 
         // GET: api/BillStatus/5
@@ -48,7 +49,8 @@ namespace bn_selling_bonsai.Controllers
             {
                 return BadRequest();
             }
-
+            DateTime localDate = DateTime.Now;
+            billStatu.ModifiedDate = localDate;
             db.Entry(billStatu).State = EntityState.Modified;
 
             try
@@ -78,7 +80,8 @@ namespace bn_selling_bonsai.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            DateTime localDate = DateTime.Now;
+            billStatu.ModifiedDate = localDate;
             db.BillStatus.Add(billStatu);
             db.SaveChanges();
 

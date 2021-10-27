@@ -17,9 +17,10 @@ namespace bn_selling_bonsai.Controllers
         private DBSellingBonsai db = new DBSellingBonsai();
 
         // GET: api/Bills
-        public IQueryable<Bill> GetBills()
+        public IQueryable<Bill> GetBills(int accountId)
         {
-            return db.Bills;
+            var result = db.Bills.OrderByDescending(b => b.Id).Where(b => b.AccountId == accountId);
+            return result;
         }
 
         // GET: api/Bills/5
