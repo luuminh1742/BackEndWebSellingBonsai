@@ -23,6 +23,36 @@ namespace bn_selling_bonsai.Controllers
             return result;
         }
 
+
+        [Route("api/BillsFilter")]
+        public IHttpActionResult GetBill(int accountId, string code = "0")
+        {
+            List<Bill> tmp = db.Bills.OrderByDescending(b => b.Id).Where(b => b.AccountId == accountId).ToList();
+            /*var result = new List<Bill>();
+            foreach (Bill bill in tmp)
+            {
+                bool checkPush = false;
+                List<BillStatu> billStatus = bill.BillStatus.ToList();
+                for (int i = billStatus.Count() - 1; i >= 0; i--)
+                {
+                    if (billStatus[i].Code.Equals(code)
+                        && billStatus[i].Status)
+                    {
+                        checkPush = true;
+                        break;
+                    }
+                }
+                if (checkPush)
+                {
+                    result.Add(bill);
+                }
+                    
+            }*/
+            return Json(new { tmp });
+        }
+
+
+
         // GET: api/Bills/5
         [ResponseType(typeof(Bill))]
         public IHttpActionResult GetBill(int id)

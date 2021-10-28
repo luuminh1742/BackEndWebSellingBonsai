@@ -35,7 +35,35 @@ namespace bn_selling_bonsai.Controllers
 
             return Ok(billStatu);
         }
+        // PUT: api/BillStatus/5
+        [Route("api/BillStatusUpdate")]
+        [ResponseType(typeof(bool))]
+        public IHttpActionResult GetBillStatu(int billId,bool status,string code)
+        {
+            BillStatu billStatu = db.BillStatus.Where(bs => bs.BillId == billId && bs.Code.Equals(code)).FirstOrDefault();
 
+            if (billStatu == null)
+            {
+                return Ok(false);
+            }
+
+            billStatu.Status = status;
+
+            DateTime localDate = DateTime.Now;
+            billStatu.ModifiedDate = localDate;
+            db.Entry(billStatu).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return Ok(false);
+            }
+
+            return Ok(true);
+        }
         // PUT: api/BillStatus/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutBillStatu(int id, BillStatu billStatu)

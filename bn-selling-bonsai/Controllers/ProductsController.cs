@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
 using bn_selling_bonsai.Models;
+using bn_selling_bonsai.Utils;
 using MyFood.Utils;
 
 namespace bn_selling_bonsai.Controllers
@@ -45,7 +46,9 @@ namespace bn_selling_bonsai.Controllers
 
             if (search != null)
             {
-                result = result.Where(p => p.Name.ToLower().Contains(search.ToLower().Trim())).ToList();
+                result = result.Where(p => 
+                RemoveVietnameseToneUtil.RemoveVietnameseTone(p.Name)
+                .Contains(RemoveVietnameseToneUtil.RemoveVietnameseTone(search))).ToList();
             }
             int totalPage = (int)Math.Ceiling(result.Count() / (float)pageSize);
             if (page > totalPage) page = 1;
