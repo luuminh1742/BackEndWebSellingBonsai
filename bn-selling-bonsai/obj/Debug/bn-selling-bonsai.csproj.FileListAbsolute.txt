@@ -78,7 +78,6 @@ D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\bin\S
 D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\bin\System.Web.WebPages.Razor.xml
 D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\bin\Antlr3.Runtime.pdb
 D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\obj\Debug\bn-selling-bonsai.csproj.AssemblyReference.cache
 D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\obj\Debug\bn-selling-bonsai.csproj.CoreCompileInputs.cache
 D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\obj\Debug\bn-selling-bonsai.csproj.CopyComplete
 D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\obj\Debug\bn-selling-bonsai.dll
@@ -87,3 +86,4 @@ D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\bin\E
 D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\bin\EntityFramework.SqlServer.dll
 D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\bin\EntityFramework.xml
 D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\bin\EntityFramework.SqlServer.xml
+D:\Sources\MyWork\WebsiteSellingBonsai\bn-selling-bonsai\bn-selling-bonsai\obj\Debug\bn-selling-bonsai.csproj.AssemblyReference.cache

@@ -17,38 +17,23 @@ namespace bn_selling_bonsai.Controllers
         private DBSellingBonsai db = new DBSellingBonsai();
 
         // GET: api/Bills
-        public IQueryable<Bill> GetBills(int accountId)
+        public IQueryable<Bill> GetBills()
         {
-            var result = db.Bills.OrderByDescending(b => b.Id).Where(b => b.AccountId == accountId);
-            return result;
+            return db.Bills.OrderByDescending(b => b.Id);
         }
 
 
         [Route("api/BillsFilter")]
-        public IHttpActionResult GetBill(int accountId, string code = "0")
+        public IQueryable<Bill> GetBill(int accountId = 0, byte code = 0)
         {
-            List<Bill> tmp = db.Bills.OrderByDescending(b => b.Id).Where(b => b.AccountId == accountId).ToList();
-            /*var result = new List<Bill>();
-            foreach (Bill bill in tmp)
+            IQueryable<Bill> result = db.Bills;
+            if (accountId > 0)
             {
-                bool checkPush = false;
-                List<BillStatu> billStatus = bill.BillStatus.ToList();
-                for (int i = billStatus.Count() - 1; i >= 0; i--)
-                {
-                    if (billStatus[i].Code.Equals(code)
-                        && billStatus[i].Status)
-                    {
-                        checkPush = true;
-                        break;
-                    }
-                }
-                if (checkPush)
-                {
-                    result.Add(bill);
-                }
-                    
-            }*/
-            return Json(new { tmp });
+                result = result.Where(b => b.AccountId == accountId);
+            }
+            result = result.Where(b => b.AtStatusCode == code);
+
+            return result;
         }
 
 
@@ -67,18 +52,13 @@ namespace bn_selling_bonsai.Controllers
         }
 
         // PUT: api/Bills/5
+        [Route("api/UpdateBill")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutBill(int id, Bill bill)
+        public IHttpActionResult PutBill(int id , byte code )
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            Bill bill = db.Bills.Find(id);
 
-            if (id != bill.Id)
-            {
-                return BadRequest();
-            }
+            bill.AtStatusCode = code;
 
             db.Entry(bill).State = EntityState.Modified;
 

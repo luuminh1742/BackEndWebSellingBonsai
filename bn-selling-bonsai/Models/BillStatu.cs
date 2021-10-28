@@ -16,9 +16,7 @@ namespace bn_selling_bonsai.Models
         [StringLength(255)]
         public string StatusName { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string Code { get; set; }
+        public byte? Code { get; set; }
 
         public DateTime ModifiedDate { get; set; }
 

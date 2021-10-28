@@ -42,6 +42,8 @@ namespace bn_selling_bonsai.Models
 
         public int? Total { get; set; }
 
+        public byte? AtStatusCode { get; set; }
+
         [JsonIgnore]
         public virtual Account Account { get; set; }
 

@@ -64,10 +64,6 @@ namespace bn_selling_bonsai.Models
                 .WithRequired(e => e.Bill)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<BillStatu>()
-                .Property(e => e.Code)
-                .IsUnicode(false);
-
             modelBuilder.Entity<Product>()
                 .Property(e => e.Image)
                 .IsUnicode(false);

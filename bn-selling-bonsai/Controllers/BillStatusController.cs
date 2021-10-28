@@ -38,9 +38,13 @@ namespace bn_selling_bonsai.Controllers
         // PUT: api/BillStatus/5
         [Route("api/BillStatusUpdate")]
         [ResponseType(typeof(bool))]
-        public IHttpActionResult GetBillStatu(int billId,bool status,string code)
+        public IHttpActionResult GetBillStatu(int billId,bool status,byte code)
         {
-            BillStatu billStatu = db.BillStatus.Where(bs => bs.BillId == billId && bs.Code.Equals(code)).FirstOrDefault();
+
+            BillStatu billStatu = db.BillStatus
+                .Where(bs => 
+                    bs.BillId == billId && bs.Code == code
+                ).FirstOrDefault();
 
             if (billStatu == null)
             {
